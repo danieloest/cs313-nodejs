@@ -5,47 +5,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="todo.css">
+    <script src="todo.js"></script>
     <title>To-Do</title>
     <style>
-    body {
-        background-color: #9DBEBB;
-    }
-    .submit {
-        /* background-color: #468189 !important; */
-    }
-    form {
-        color:#031926;
-    }
+
     </style>
 </head>
 <body>
     <div class="jumbotron">
         <ul class="nav justify-content-center">
             <li class="nav-item">
-                <a class="nav-link" href="#">Log In</a>
+                <a class="nav-link" href="#" onclick="loadLogIn()">Log In</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Sign Up</a>
+                <a class="nav-link" href="#" onclick="loadSignUp()">Sign Up</a>
             </li>
         </ul>
     </div>
-
-    <form action="" style="padding: 3em">
-            <div class="form-group">
-              <label for="username">Username</label>
-              <input type="text" class="form-control" name="username" id="username" aria-describedby="helpId" placeholder="">
-            </div>
-            <div class="form-group">
-              <label for="password">Password</label>
-              <input type="password" class="form-control" name="password" id="password" placeholder="">
-            </div>
-            <div class="form-group">
-              <label for="password">Confirm Password</label>
-              <input type="password" class="form-control" name="confirm-password" id="confirm-password" placeholder="">
-            </div>
-            <div style="text-align: center">
-                <button type="submit" class="btn btn-primary submit">Submit</button>
-            </div>
-    </form>
+    <div id="loginHolder"></div>
 </body>
 </html>
