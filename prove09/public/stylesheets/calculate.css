@@ -1,0 +1,11 @@
+.radio {
+    display: inline;
+}
+
+#number {
+    margin-left: 1em;
+}
+
+.results {
+    text-align: center;
+}

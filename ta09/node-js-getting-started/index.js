@@ -29,9 +29,6 @@ express()
       default:
         console.log("Something went wrong");
     }
-    // res.write(num1 + " " + operation + " " + num2 + " = " + result);
     res.render('pages/results.ejs', {results: result});
-    // console.log(req.query()); 
-    // res.end();
     })
   .listen(PORT, () => console.log(`Listening on ${ PORT }`))
