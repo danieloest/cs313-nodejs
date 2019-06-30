@@ -1,0 +1,13 @@
+.error, #errorMessage {
+    color: red;
+    display: inline-block;
+}
+body {
+    background-color: #9DBEBB;
+}
+.submit {
+    /* background-color: #468189 !important; */
+}
+form {
+    color:#031926;
+}
