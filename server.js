@@ -42,11 +42,8 @@ express()
   .get('/signUp', (req, res) => {
       console.log("Trying to access sign up page");
     })
-    .get('/logIn', (req, res) => {
-        console.log("Trying to access log in page");
-        res.render('signUp.html');
-        res.send();
-    })
+    // Logging in
+    .post('/logIn', userController.logIn)
     // Adding user to database
     .post('/addUser', userController.addUser)
     .listen(PORT, () => console.log(`Listening on ${ PORT }`))
