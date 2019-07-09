@@ -4,8 +4,7 @@ const connectionString = process.env.DATABASE_URL;
 console.log(connectionString);
 const express = require('express')
 var path = require('path')
-// const PORT = process.env.PORT || 5000
-const PORT = 5000
+const PORT = process.env.PORT || 5000
 var bodyParser = require('body-parser')
 const userController = require("./controllers/userController.js");
 
