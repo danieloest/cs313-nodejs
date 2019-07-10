@@ -57,3 +57,26 @@ function signUp() {
         return true;
     }
 }
+
+// TOOD: On load, do a get request to check if logged in
+function checkLoggedIn() {
+    alert("Checking if we're logged in or somethin");
+    $.get('/isLoggedIn', function(result) {
+        console.log(result.success);
+        let jumbotron = document.getElementById("jumbotron");
+        // User logged in
+        if (result.success) {
+            // Display Log out button
+            jumbotron.innerHTML = '<ul class="nav justify-content-center"><li class="nav-item"><a class="nav-link" href="#" onclick="logOut()">Log Out</a></li></ul>';
+        }
+        else {
+            // Display "Log In" and "Sign Up" button
+            jumbotron.innerHTML = '<ul class="nav justify-content-center"><li class="nav-item"><a class="nav-link" href="#" onclick="loadLogIn()">Log In</a></li><li class="nav-item"><a class="nav-link" href="#" onclick="loadSignUp()">Sign Up</a></li></ul>';
+        }
+        console.log("End of get");
+    })
+}
+
+function logOut() {
+
+}

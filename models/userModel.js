@@ -34,22 +34,16 @@ function authenticateUser(username, password, callback) {
             throw err;
         }
         else {
-            console.log(db_results.rows);
-            bcrypt.hash(password, 10, (err, hash) => {
-                console.log("Hash: " + hash);
-                console.log("DB hash: " + db_results.rows.password);
-                if (hash == db_results.rows)
+            console.log(db_results.rows[0].password);
+            bcrypt.compare(password, db_results.rows[0].password, function(err, res) {
+                // res == true
+                console.log("DB hash: " + db_results.rows[0].password);
+                if (res == true)
                     results = true;
                 else results = false;
                 callback(results);
-            })
-            // var results = {
-            //     success: true,
-            //     list:db_results.rows
-            // };
-            // results = false;
+            });
         }
-        // callback(results);
     })
 }
 
