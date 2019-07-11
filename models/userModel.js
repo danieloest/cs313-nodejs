@@ -9,6 +9,9 @@ const pool = new Pool({connectionString: connectionString});
 ********************************************************/
 function addUsertoDB(username, password, callback) {
     bcrypt.hash(password, 10, function(err, hash) {
+        if (err) {
+            throw Error = new Error("....we done goofed. Can't add to database");
+        }
         console.log(hash);
         var sql = " INSERT INTO USERS(username, password) VALUES ($1::text, $2::text)";
         var params = [username, hash];
@@ -16,8 +19,7 @@ function addUsertoDB(username, password, callback) {
             console.log("In query function");
         })
     });
-    var results = {success: true};
-    callback(results);         
+    callback(null);         
 }
 
 /********************************************************

@@ -58,7 +58,6 @@ function signUp() {
     }
 }
 
-// TOOD: On load, do a get request to check if logged in
 function checkLoggedIn() {
     $.get('/isLoggedIn', function(result) {
         console.log(result.success);
