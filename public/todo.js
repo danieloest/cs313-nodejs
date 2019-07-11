@@ -60,7 +60,6 @@ function signUp() {
 
 // TOOD: On load, do a get request to check if logged in
 function checkLoggedIn() {
-    alert("Checking if we're logged in or somethin");
     $.get('/isLoggedIn', function(result) {
         console.log(result.success);
         let jumbotron = document.getElementById("jumbotron");
@@ -73,10 +72,16 @@ function checkLoggedIn() {
             // Display "Log In" and "Sign Up" button
             jumbotron.innerHTML = '<ul class="nav justify-content-center"><li class="nav-item"><a class="nav-link" href="#" onclick="loadLogIn()">Log In</a></li><li class="nav-item"><a class="nav-link" href="#" onclick="loadSignUp()">Sign Up</a></li></ul>';
         }
-        console.log("End of get");
     })
 }
 
 function logOut() {
-
+    console.log("In logout()");
+    $.post('/logOut', function(data) {
+        console.log("logging out");
+        console.log(data);
+        if (data.success) {
+            window.location.href = "/todo";
+        }
+    });
 }

@@ -16,31 +16,31 @@ function logIn(req, res, callback) {
     var username = req.body.username;
     var password = req.body.password;
     var authenticated = userModel.authenticateUser(username, password, function(results) {
-        console.log(results);
         // If they are authenticated, log them in
         if (results == true) {
-            console.log("Logged in!");
             req.session.loggedIn = true;
-            // return true;
-            // res.sendFile(__dirname + '/../public/todo.html')
-            
+            req.session.username = username;            
         }
         else {
-            // results == false;
-            // return false;
+            // TODO: show error messge on bad log in
         }
         callback();
     });
-    console.log("Username: " + username);
-    console.log("password: " + password);
 }
 
 function getIsLoggedIn (req) {
     return req.session.loggedIn;
 }
 
+function logOut (req) {
+    req.session.loggedIn = false;
+    console.log("After logging out, LoggedIn is: " + req.session.loggedIn);
+    // req.session.destroy();
+}
+
 module.exports = {
     addUser: addUser,
     logIn: logIn,
-    getIsLoggedIn: getIsLoggedIn
+    getIsLoggedIn: getIsLoggedIn,
+    logOut: logOut
 };

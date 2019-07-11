@@ -27,7 +27,6 @@ express()
       console.log("Trying to access sign up page");
     })
     // Logging in
-    // .post('/logIn', userController.logIn)
     .post('/logIn', (req, res) => {
       userController.logIn(req, res, function () {
         console.log("Session: " + req.session.loggedIn);
@@ -40,5 +39,13 @@ express()
       response = userController.getIsLoggedIn(req);
       var results = {success: response};
       res.json(results);
+    })
+    .post('/logOut', (req, res) => {
+      console.log("Logging out");
+      // console.log("Logged in before: " + req.session.loggedIn);
+      userController.logOut(req);
+      res.json({success: true});
+      // console.log("Logged in after: " + req.session.loggedIn);
+      // res.redirect('back');
     })
     .listen(PORT, () => console.log(`Listening on ${ PORT }`))
