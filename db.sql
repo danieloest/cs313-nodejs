@@ -3,3 +3,14 @@ CREATE TABLE users (
     username text,
     password text
 );
+
+CREATE TABLE todoItems (
+    itemID  serial primary key,
+    task    text,
+    isCompleted BOOLEAN,
+    userID  int references users(userID)
+);
+
+-- Add test task for user Kevin
+INSERT INTO todoItems (task, isCompleted, userID) VALUES ('Do the thing', FALSE, 4);
+SELECT task, isCompleted, userID FROM todoItems where userID = 4;

@@ -36,12 +36,13 @@ express()
   var results = {success: response};
   res.json(results);
 })
+// Log out
 .post('/logOut', (req, res) => {
   console.log("Logging out");
-  // console.log("Logged in before: " + req.session.loggedIn);
   userController.logOut(req);
   res.json({success: true});
-  // console.log("Logged in after: " + req.session.loggedIn);
-  // res.redirect('back');
+})
+.get('/loadTodoList', (req, res) => {
+  userController.getTodoList(req,res);
 })
 .listen(PORT, () => console.log(`Listening on ${ PORT }`))

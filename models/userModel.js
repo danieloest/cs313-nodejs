@@ -28,8 +28,36 @@ function addUsertoDB(username, password, callback) {
 *  passed in
 ********************************************************/
 function authenticateUser(username, password, callback) {
-    var sql = "SELECT password FROM users WHERE username=$1::text";
+    var sql = "SELECT password, userid FROM users WHERE username=$1::text";
     var params = [username];
+    pool.query(sql, params, function(err, db_results) {
+        console.log("In query function");
+        if (err) {
+            throw err;
+        }
+        else {
+            console.log(db_results.rows[0].password);
+            bcrypt.compare(password, db_results.rows[0].password, function(err, res) {
+                // res == true
+                console.log("DB hash: " + db_results.rows[0].password);
+                console.log("User id: " + db_results.rows[0].userid);
+                if (res == true)
+                    results = {success: true, userid: db_results.rows[0].userid};
+                else results = false;
+                callback(results);
+            });
+        }
+    })
+}
+
+/**************************************************************
+* Gets the todo list items
+**************************************************************/
+function getTodoList(userid, callback) {
+    console.log("Loading to do list.... in model! For user: " + userid);
+    /*var sql = "SELECT task, isCompleted, userID FROM todoItems where userID=$1::text";
+    var sql1 = "SELECT userID FROM users WHERE username="
+    var userID;
     pool.query(sql, params, function(err, db_results) {
         console.log("In query function");
         if (err) {
@@ -47,9 +75,15 @@ function authenticateUser(username, password, callback) {
             });
         }
     })
+    var params = [username];
+    callback();*/
 }
 
+/**************************************************************
+* Export the functions
+**************************************************************/
 module.exports = {
     addUsertoDB: addUsertoDB,
-    authenticateUser: authenticateUser
+    authenticateUser: authenticateUser,
+    getTodoList : getTodoList
 };

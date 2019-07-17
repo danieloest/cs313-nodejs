@@ -58,6 +58,20 @@ function signUp() {
     }
 }
 
+
+/**************************************************************
+* Loads the to do list
+**************************************************************/
+function loadTodoList() {
+    $.get('/loadTodoList', function(result) {
+
+    });
+}
+
+
+/**************************************************************
+* Check whether or not the user is logged in
+**************************************************************/
 function checkLoggedIn() {
     $.get('/isLoggedIn', function(result) {
         console.log(result.success);
@@ -66,6 +80,7 @@ function checkLoggedIn() {
         if (result.success) {
             // Display Log out button
             jumbotron.innerHTML = '<ul class="nav justify-content-center"><li class="nav-item"><a class="nav-link" href="#" onclick="logOut()">Log Out</a></li></ul>';
+            loadTodoList();
         }
         else {
             // Display "Log In" and "Sign Up" button
@@ -74,6 +89,9 @@ function checkLoggedIn() {
     })
 }
 
+/**************************************************************
+* Communicates with the server to log out the user
+**************************************************************/
 function logOut() {
     console.log("In logout()");
     $.post('/logOut', function(data) {
