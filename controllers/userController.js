@@ -96,6 +96,13 @@ function addTask(req, res) {
     });
 }
 
+function markCompletion(req, res) {
+    let isChecked = req.body.isChecked;
+    let taskID = req.body.taskID;
+    userModel.markCompletion(taskID, isChecked, function() {
+        res.send(true);
+    });
+}
 /**************************************************************
 * Export the functions
 **************************************************************/
@@ -106,5 +113,6 @@ module.exports = {
     logOut: logOut,
     getTodoList: getTodoList,
     removeTask : removeTask,
-    addTask : addTask
+    addTask : addTask,
+    markCompletion : markCompletion
 };

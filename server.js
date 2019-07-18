@@ -51,4 +51,7 @@ express()
   console.log("In server");
   userController.addTask(req, res);
 })
+.post('/markCompletion', (req, res) => {
+  userController.markCompletion(req, res);
+})
 .listen(PORT, () => console.log(`Listening on ${ PORT }`))

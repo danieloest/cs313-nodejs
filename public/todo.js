@@ -80,7 +80,6 @@ function addX(taskIds) {
         var txt = document.createTextNode("\u00D7");
         span.className = "close";
         $(span).click(function(event) {
-            alert("Clicked the x thing!");
             let id = jQuery(this).attr("id");
             removeTask(id);
         })
@@ -100,13 +99,23 @@ function loadTodoList() {
         console.log(tasks);
         let taskIds = [];
         let taskHolder = document.getElementById("taskHolder");
-        // taskHolder.innerHTML = "<ul id=\"tasks\" class=\"list-group\">";
         let taskList = document.createElement("ul");
         taskList.id = "tasks";
         taskList.className = "list-group";
         taskHolder.appendChild(taskList);
         tasks.forEach(task => {
-            taskList.innerHTML += `<li class=\"task list-group-item\" id=\"${task.itemid}\">${task.task}</li>`;
+            // Add the checkbox
+            // taskList.inerrHTML += `<input type="checkbox" id="${task.itemid}">`;
+            // Add the task
+            let isCompleted = task.iscompleted;
+            console.log("Is checked: " + isCompleted);
+            if (isCompleted) {
+                taskList.innerHTML += `<li class=\"task list-group-item\" id=\"${task.itemid}\"><input type="checkbox" checked class="abc-checkbox-primar" id="check-${task.itemid}" onchange="markComplete(${task.itemid}, 'check-${task.itemid}')">${task.task}</li>`;
+            }
+            else {
+                taskList.innerHTML += `<li class=\"task list-group-item\" id=\"${task.itemid}\"><input type="checkbox" class="abc-checkbox-primar" id="check-${task.itemid}" onchange="markComplete(${task.itemid}, 'check-${task.itemid}')">${task.task}</li>`;
+            }
+            // Add the ID to an array
             taskIds.push(task.itemid);
         });
         // Add the option to add items
@@ -152,9 +161,19 @@ function logOut() {
 }
 
 function addItem() {
-    // alert("We are adding a task. Woohoo!");
     let task = document.getElementById("addTask").value;
     $.post('/addTask', {task: task},function() {
+        location.reload();
+    })
+}
+
+function markComplete(taskID, checkID) {
+    console.log("taskID: " + taskID);
+    console.log("checkID: " + checkID);
+    let task = document.getElementById(checkID);
+    let isChecked = task.checked;
+    console.log("Task checked: " + isChecked);
+    $.post('/markCompletion', {taskID: taskID, isChecked: isChecked},function() {
         location.reload();
     })
 }

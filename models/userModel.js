@@ -55,7 +55,7 @@ function authenticateUser(username, password, callback) {
 **************************************************************/
 function getTodoList(userid, callback) {
     console.log("Loading to do list.... in model! For user: " + userid);
-    var sql = "SELECT task, isCompleted, itemID FROM todoItems where userID=$1::integer";
+    var sql = "SELECT task, isCompleted, itemID FROM todoItems where userID=$1::integer ORDER BY itemID";
     var params = [userid];
     pool.query(sql, params, function(err, db_results) {
         console.log("In query function");
@@ -107,6 +107,21 @@ function addTask(task, userID ,callback) {
         });
 }
 
+function markCompletion(taskID, isChecked, callback) {
+    var sql = "INSERT INTO todoItems (task, isCompleted, userID) VALUES ($1::text, FALSE, $2::integer);";
+    var sql = "UPDATE todoItems SET isCompleted = $1::boolean WHERE itemID = $2::integer;";
+    var params = [isChecked, taskID];
+    pool.query(sql, params, function(err, db_results) {
+        console.log("In query function");
+        if (err) {
+            throw err;
+        }
+        else {
+            callback();
+            };
+        });
+}
+
 /**************************************************************
 * Export the functions
 **************************************************************/
@@ -115,5 +130,6 @@ module.exports = {
     authenticateUser: authenticateUser,
     getTodoList : getTodoList,
     removeTask : removeTask,
-    addTask : addTask
+    addTask : addTask,
+    markCompletion : markCompletion
 };

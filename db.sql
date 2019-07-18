@@ -16,3 +16,5 @@ INSERT INTO todoItems (task, isCompleted, userID) VALUES ('Do the thing', FALSE,
 INSERT INTO todoItems (task, isCompleted, userID) VALUES ('DELETE THIS.. part 2', FALSE, 4);
 SELECT task, isCompleted, userID FROM todoItems where userID = 4;
 DELETE FROM todoItems WHERE itemID = 2;
+UPDATE todoItems SET isCompleted = true WHERE itemID = 21;
+SELECT * FROM todoItems;
