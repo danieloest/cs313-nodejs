@@ -72,9 +72,21 @@ function getTodoList(userid, callback) {
 /**************************************************************
 * Remove task from database
 **************************************************************/
-function removeTask(taskId) {
+function removeTask(taskId, callback) {
     console.log("Removing this task yo");
     console.log("Task id: " + taskId);
+    var sql = "DELETE FROM todoItems WHERE itemID=$1::integer";
+    var params = [taskId];
+    pool.query(sql, params, function(err, db_results) {
+        console.log("In query function");
+        if (err) {
+            throw err;
+        }
+        else {
+            // console.log(db_results.rows);
+            callback();
+            };
+        });
 }
 
 /**************************************************************

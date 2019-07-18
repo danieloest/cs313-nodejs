@@ -75,9 +75,13 @@ function getTodoList(req, res) {
 /**************************************************************
 * Remove task from database
 **************************************************************/
-function removeTask(req, res) {
+function removeTask(req, res, callback) {
     let taskId = req.body.taskId;
-    userModel.removeTask(taskId);
+    userModel.removeTask(taskId, function() {
+        console.log(__dirname + '/public/todo.html')
+        // res.sendFile(__dirname + '/public/todo.html');
+        res.send(true);
+    });
 }
 
 /**************************************************************

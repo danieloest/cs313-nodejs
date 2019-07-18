@@ -60,9 +60,8 @@ function signUp() {
 
 
 function removeTask(id) {
-    alert("Task id: " + id);
     $.post('/removeTask', {taskId: id},function() {
-
+        location.reload();
     })
 }
 

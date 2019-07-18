@@ -1,12 +1,11 @@
 require('dotenv').config();
-console.log(process.env.DATABASE_URL);
 const connectionString = process.env.DATABASE_URL;
-console.log(connectionString);
 const express = require('express')
 var path = require('path')
 const PORT = process.env.PORT || 5000
 var bodyParser = require('body-parser')
 var session = require('express-session')
+var request = require('request');
 
 
 const { Pool } = require('pg');
@@ -21,11 +20,10 @@ express()
 .use(session({secret: 'super-secret-key'}))
 .set('views', path.join(__dirname, 'views'))
 .set('view engine', 'ejs')
-.get('/todo', (req, res) => res.sendFile(__dirname + '/public/todo.html'))
+.get('/todo', (req, res) => {res.sendFile(__dirname + '/public/todo.html'); console.log("!!!")})
 // Logging in
 .post('/logIn', (req, res) => {
   userController.logIn(req, res, function () {
-    console.log("Session: " + req.session.loggedIn);
     res.sendFile(__dirname + '/public/todo.html');
   });
 })
@@ -38,7 +36,6 @@ express()
 })
 // Log out
 .post('/logOut', (req, res) => {
-  console.log("Logging out");
   userController.logOut(req);
   res.json({success: true});
 })
