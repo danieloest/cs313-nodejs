@@ -42,7 +42,12 @@ express()
   userController.logOut(req);
   res.json({success: true});
 })
+// Load todo list
 .get('/loadTodoList', (req, res) => {
   userController.getTodoList(req,res);
+})
+// Remove an item from database
+.post('/removeTask', (req, res) => {
+  userController.removeTask(req, res);
 })
 .listen(PORT, () => console.log(`Listening on ${ PORT }`))

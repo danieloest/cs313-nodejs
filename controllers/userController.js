@@ -64,12 +64,20 @@ function logOut (req) {
 /**************************************************************
 * Gets the todo list items
 **************************************************************/
-function getTodoList(req) {
+function getTodoList(req, res) {
     let userid = req.session.userid;
     console.log("Getting to do list for " + userid);
     userModel.getTodoList(userid, function(results) {
-
+        res.send(JSON.stringify(results))
     });
+}
+
+/**************************************************************
+* Remove task from database
+**************************************************************/
+function removeTask(req, res) {
+    let taskId = req.body.taskId;
+    userModel.removeTask(taskId);
 }
 
 /**************************************************************
@@ -80,5 +88,6 @@ module.exports = {
     logIn: logIn,
     getIsLoggedIn: getIsLoggedIn,
     logOut: logOut,
-    getTodoList: getTodoList
+    getTodoList: getTodoList,
+    removeTask : removeTask
 };

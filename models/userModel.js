@@ -55,28 +55,26 @@ function authenticateUser(username, password, callback) {
 **************************************************************/
 function getTodoList(userid, callback) {
     console.log("Loading to do list.... in model! For user: " + userid);
-    /*var sql = "SELECT task, isCompleted, userID FROM todoItems where userID=$1::text";
-    var sql1 = "SELECT userID FROM users WHERE username="
-    var userID;
+    var sql = "SELECT task, isCompleted, itemID FROM todoItems where userID=$1::integer";
+    var params = [userid];
     pool.query(sql, params, function(err, db_results) {
         console.log("In query function");
         if (err) {
             throw err;
         }
         else {
-            console.log(db_results.rows[0].password);
-            bcrypt.compare(password, db_results.rows[0].password, function(err, res) {
-                // res == true
-                console.log("DB hash: " + db_results.rows[0].password);
-                if (res == true)
-                    results = true;
-                else results = false;
-                callback(results);
-            });
-        }
-    })
-    var params = [username];
-    callback();*/
+            // console.log(db_results.rows);
+            callback(db_results.rows);
+            };
+        });
+}
+
+/**************************************************************
+* Remove task from database
+**************************************************************/
+function removeTask(taskId) {
+    console.log("Removing this task yo");
+    console.log("Task id: " + taskId);
 }
 
 /**************************************************************
@@ -85,5 +83,6 @@ function getTodoList(userid, callback) {
 module.exports = {
     addUsertoDB: addUsertoDB,
     authenticateUser: authenticateUser,
-    getTodoList : getTodoList
+    getTodoList : getTodoList,
+    removeTask : removeTask
 };

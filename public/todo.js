@@ -59,12 +59,48 @@ function signUp() {
 }
 
 
+function removeTask(id) {
+    alert("Task id: " + id);
+    $.post('/removeTask', {taskId: id},function() {
+
+    })
+}
+
+function addX(taskIds) {
+    console.log("Adding the x thing");
+    var taskList = document.getElementsByClassName("task");
+    for (let  i = 0; i < taskList.length; i++) {
+        var span = document.createElement("SPAN");
+        var txt = document.createTextNode("\u00D7");
+        span.className = "close";
+        $(span).click(function(event) {
+            // alert("Clicked the x thing!");
+            let id = jQuery(this).attr("id");
+            removeTask(id);
+        })
+        span.id = taskIds[i];
+        span.appendChild(txt);
+        taskList[i].appendChild(span);
+}
+}
+
 /**************************************************************
 * Loads the to do list
 **************************************************************/
 function loadTodoList() {
-    $.get('/loadTodoList', function(result) {
-
+    $.get('/loadTodoList', function(results) {
+        // console.log(results);
+        let tasks = JSON.parse(results);
+        console.log(tasks);
+        let taskIds = [];
+        let taskHolder = document.getElementById("taskHolder");
+        taskHolder.innerHTML = "<ul id=\"tasks\" class=\"list-group\">";
+        tasks.forEach(task => {
+            console.log(task);
+            taskHolder.innerHTML += `<li class=\"task list-group-item\" id=\"${task.itemid}\">${task.task}</li>`;
+            taskIds.push(task.itemid);
+        });
+        addX(taskIds);
     });
 }
 
