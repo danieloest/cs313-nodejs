@@ -83,7 +83,25 @@ function removeTask(taskId, callback) {
             throw err;
         }
         else {
-            // console.log(db_results.rows);
+            callback();
+            };
+        });
+}
+
+/**************************************************************
+* Add a task to the database
+**************************************************************/
+function addTask(task, userID ,callback) {
+    console.log("Task in model: " + task);
+    console.log("For user: " + userID);
+    var sql = "INSERT INTO todoItems (task, isCompleted, userID) VALUES ($1::text, FALSE, $2::integer);";
+    var params = [task, userID];
+    pool.query(sql, params, function(err, db_results) {
+        console.log("In query function");
+        if (err) {
+            throw err;
+        }
+        else {
             callback();
             };
         });
@@ -96,5 +114,6 @@ module.exports = {
     addUsertoDB: addUsertoDB,
     authenticateUser: authenticateUser,
     getTodoList : getTodoList,
-    removeTask : removeTask
+    removeTask : removeTask,
+    addTask : addTask
 };

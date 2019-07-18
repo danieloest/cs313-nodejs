@@ -68,7 +68,7 @@ function removeTask(id) {
 
 function displayAddBar(taskList) {
     console.log("Addingg the add bar");
-    taskList.innerHTML += "<div class=\"input-group\"><input type=\"text\" class=\"form-control\" id=\"\" aria-describedby=\"helpId\" placeholder=\"Add a task\"><button class=\"btn btn-info\"><b>+</b> Add </button></div>"
+    taskList.innerHTML += "<div class=\"input-group\"><input type=\"text\" class=\"form-control\" id=\"addTask\" aria-describedby=\"helpId\" placeholder=\"Add a task\"><button onclick=\"addItem()\" class=\"btn btn-info\"><b>+</b> Add </button></div>"
 
 }
 
@@ -80,7 +80,7 @@ function addX(taskIds) {
         var txt = document.createTextNode("\u00D7");
         span.className = "close";
         $(span).click(function(event) {
-            // alert("Clicked the x thing!");
+            alert("Clicked the x thing!");
             let id = jQuery(this).attr("id");
             removeTask(id);
         })
@@ -109,10 +109,10 @@ function loadTodoList() {
             taskList.innerHTML += `<li class=\"task list-group-item\" id=\"${task.itemid}\">${task.task}</li>`;
             taskIds.push(task.itemid);
         });
-        // Add the remove button
-        addX(taskIds);
         // Add the option to add items
         displayAddBar(taskList);
+        // Add the remove button
+        addX(taskIds);
     });
 }
 
@@ -149,4 +149,12 @@ function logOut() {
             window.location.href = "/todo";
         }
     });
+}
+
+function addItem() {
+    // alert("We are adding a task. Woohoo!");
+    let task = document.getElementById("addTask").value;
+    $.post('/addTask', {task: task},function() {
+        location.reload();
+    })
 }

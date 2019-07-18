@@ -47,4 +47,8 @@ express()
 .post('/removeTask', (req, res) => {
   userController.removeTask(req, res);
 })
+.post('/addTask', (req, res) => {
+  console.log("In server");
+  userController.addTask(req, res);
+})
 .listen(PORT, () => console.log(`Listening on ${ PORT }`))

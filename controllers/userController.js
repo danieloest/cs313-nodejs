@@ -85,6 +85,18 @@ function removeTask(req, res, callback) {
 }
 
 /**************************************************************
+* Add a task to the database
+**************************************************************/
+function addTask(req, res) {
+    console.log("Adding the task in the controller!! WOOOO");
+    let task = req.body.task;
+    let userID = req.session.userid;
+    userModel.addTask(task, userID, function () {
+        res.send(true);
+    });
+}
+
+/**************************************************************
 * Export the functions
 **************************************************************/
 module.exports = {
@@ -93,5 +105,6 @@ module.exports = {
     getIsLoggedIn: getIsLoggedIn,
     logOut: logOut,
     getTodoList: getTodoList,
-    removeTask : removeTask
+    removeTask : removeTask,
+    addTask : addTask
 };
