@@ -65,6 +65,13 @@ function removeTask(id) {
     })
 }
 
+
+function displayAddBar(taskList) {
+    console.log("Addingg the add bar");
+    taskList.innerHTML += "<div class=\"input-group\"><input type=\"text\" class=\"form-control\" id=\"\" aria-describedby=\"helpId\" placeholder=\"Add a task\"><button class=\"btn btn-info\"><b>+</b> Add </button></div>"
+
+}
+
 function addX(taskIds) {
     console.log("Adding the x thing");
     var taskList = document.getElementsByClassName("task");
@@ -93,13 +100,19 @@ function loadTodoList() {
         console.log(tasks);
         let taskIds = [];
         let taskHolder = document.getElementById("taskHolder");
-        taskHolder.innerHTML = "<ul id=\"tasks\" class=\"list-group\">";
+        // taskHolder.innerHTML = "<ul id=\"tasks\" class=\"list-group\">";
+        let taskList = document.createElement("ul");
+        taskList.id = "tasks";
+        taskList.className = "list-group";
+        taskHolder.appendChild(taskList);
         tasks.forEach(task => {
-            console.log(task);
-            taskHolder.innerHTML += `<li class=\"task list-group-item\" id=\"${task.itemid}\">${task.task}</li>`;
+            taskList.innerHTML += `<li class=\"task list-group-item\" id=\"${task.itemid}\">${task.task}</li>`;
             taskIds.push(task.itemid);
         });
+        // Add the remove button
         addX(taskIds);
+        // Add the option to add items
+        displayAddBar(taskList);
     });
 }
 
