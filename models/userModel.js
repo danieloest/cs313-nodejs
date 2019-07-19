@@ -59,6 +59,8 @@ function getTodoList(userid, callback) {
     var params = [userid];
     pool.query(sql, params, function(err, db_results) {
         console.log("In query function");
+        console.log("Results: " );
+        console.log(db_results.rows);
         if (err) {
             throw err;
         }
