@@ -18,7 +18,6 @@ function addUser(req, res) {
         }
         else {
             // Redirect to /todo
-            console.log("Dir name: " + path.join(__dirname, '../'));
             res.sendFile(path.join(__dirname, '../') + '/public/todo.html');
         }
     });
