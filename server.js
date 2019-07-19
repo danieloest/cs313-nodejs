@@ -20,7 +20,7 @@ express()
 .use(session({secret: 'super-secret-key'}))
 .set('views', path.join(__dirname, 'views'))
 .set('view engine', 'ejs')
-.get('/todo', (req, res) => {res.sendFile(__dirname + '/public/todo.html'); console.log("!!!")})
+.get('/todo', (req, res) => res.sendFile(__dirname + '/public/todo.html'))
 // Logging in
 .post('/logIn', (req, res) => {
   userController.logIn(req, res, function () {
@@ -48,7 +48,6 @@ express()
   userController.removeTask(req, res);
 })
 .post('/addTask', (req, res) => {
-  console.log("In server");
   userController.addTask(req, res);
 })
 .post('/markCompletion', (req, res) => {

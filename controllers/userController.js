@@ -1,6 +1,5 @@
 const userModel = require("../models/userModel.js");
 var path = require('path');
-var request = require('request');
 
 
 
@@ -12,17 +11,13 @@ function addUser(req, res) {
     var password = req.body.password;
     req.session.loggedIn = true;
     req.session.username = username;            
-    console.log("Before setting");
-    console.log("User: " + req.session.username);
     userModel.addUsertoDB(username, password, function(err) {
         if (err) {
             console.log("We're lost now....");
         }
         else {
             // Get the userID
-            console.log("Before getUSERID");
             userModel.getuserID(username, function(userID){
-                console.log("The id is: " + userID);
                 req.session.userid = userID;
                 res.send(true);
             })
@@ -45,7 +40,6 @@ function logIn(req, res, callback) {
             req.session.userid = results.userid;            
         }
         else {
-            // TODO: show error messge on bad log in
         }
         callback();
     });
@@ -64,7 +58,6 @@ function getIsLoggedIn (req) {
 function logOut (req) {
     req.session.loggedIn = false;
     req.session.userid = -1;
-    console.log("After logging out, LoggedIn is: " + req.session.loggedIn);
 }
 
 /**************************************************************
@@ -72,7 +65,6 @@ function logOut (req) {
 **************************************************************/
 function getTodoList(req, res) {
     let userid = req.session.userid;
-    console.log("Getting to do list for " + userid);
     userModel.getTodoList(userid, function(results) {
         res.send(JSON.stringify(results))
     });
@@ -84,8 +76,6 @@ function getTodoList(req, res) {
 function removeTask(req, res, callback) {
     let taskId = req.body.taskId;
     userModel.removeTask(taskId, function() {
-        console.log(__dirname + '/public/todo.html')
-        // res.sendFile(__dirname + '/public/todo.html');
         res.send(true);
     });
 }
@@ -94,7 +84,6 @@ function removeTask(req, res, callback) {
 * Add a task to the database
 **************************************************************/
 function addTask(req, res) {
-    console.log("Adding the task in the controller!! WOOOO");
     let task = req.body.task;
     let userID = req.session.userid;
     userModel.addTask(task, userID, function () {
@@ -102,6 +91,9 @@ function addTask(req, res) {
     });
 }
 
+/**************************************************************
+* Marks whether or not a task is compelted
+**************************************************************/
 function markCompletion(req, res) {
     let isChecked = req.body.isChecked;
     let taskID = req.body.taskID;
