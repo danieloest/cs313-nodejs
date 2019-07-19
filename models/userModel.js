@@ -17,9 +17,9 @@ function addUsertoDB(username, password, callback) {
         var params = [username, hash];
         pool.query(sql, params, function() {
             console.log("In query function");
+            callback(null);         
         })
     });
-    callback(null);         
 }
 
 /********************************************************
@@ -110,7 +110,6 @@ function addTask(task, userID ,callback) {
 }
 
 function markCompletion(taskID, isChecked, callback) {
-    var sql = "INSERT INTO todoItems (task, isCompleted, userID) VALUES ($1::text, FALSE, $2::integer);";
     var sql = "UPDATE todoItems SET isCompleted = $1::boolean WHERE itemID = $2::integer;";
     var params = [isChecked, taskID];
     pool.query(sql, params, function(err, db_results) {
@@ -124,6 +123,23 @@ function markCompletion(taskID, isChecked, callback) {
         });
 }
 
+function getuserID(username, callback) {
+    var sql = "SELECT userID FROM users WHERE username = $1::text;";
+    var params = [username];
+    pool.query(sql, params, function(err, db_results) {
+        console.log("In userID function");
+        console.log(db_results.rows);
+        console.log(db_results.rows.userID);
+        if (err) {
+            throw err;
+        }
+        else {
+            console.log("Right before callback in getUSERID");
+            callback(db_results.rows[0].userid);
+            };
+        });
+}
+
 /**************************************************************
 * Export the functions
 **************************************************************/
@@ -133,5 +149,6 @@ module.exports = {
     getTodoList : getTodoList,
     removeTask : removeTask,
     addTask : addTask,
-    markCompletion : markCompletion
+    markCompletion : markCompletion,
+    getuserID : getuserID
 };

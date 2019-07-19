@@ -1,5 +1,6 @@
 <!-- Would it be better do have the action do this, or call a function on submit? -->
-<form action="/addUser" method="POST" onSubmit="return signUp()" style="padding: 3em">
+<!-- <form action="/addUser" method="POST" onSubmit="return signUp()" style="padding: 3em"> -->
+<!-- <form action="#" method="" onSubmit="return signUp()" style="padding: 3em"> -->
   <div class="form-group">
     <label for="username">Username</label>
     <input type="text" class="form-control" name="username" id="username" aria-describedby="helpId" placeholder="">
@@ -16,6 +17,6 @@
   </div>
   <p id="errorMessage"></p>
   <div style="text-align: center">
-      <button type="submit" class="btn btn-primary submit">Submit</button>
+      <button type="submit" class="btn btn-primary submit" onclick="signUp()">Submit</button>
   </div>
-</form>
+<!-- </form> -->

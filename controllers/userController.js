@@ -1,5 +1,7 @@
 const userModel = require("../models/userModel.js");
-var path = require('path')
+var path = require('path');
+var request = require('request');
+
 
 
 /**************************************************************
@@ -17,8 +19,13 @@ function addUser(req, res) {
             console.log("We're lost now....");
         }
         else {
-            // Redirect to /todo
-            res.sendFile(path.join(__dirname, '../') + '/public/todo.html');
+            // Get the userID
+            console.log("Before getUSERID");
+            userModel.getuserID(username, function(userID){
+                console.log("The id is: " + userID);
+                req.session.userid = userID;
+                res.send(true);
+            })
         }
     });
     

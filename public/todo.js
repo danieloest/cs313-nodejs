@@ -32,6 +32,7 @@ function loadLogIn() {
  * Checks if the passwords are valid
  ***************************************/
 function signUp() {
+    console.log("In signup");
     var username = document.getElementById("username").value;
     var password = document.getElementById("password").value;
     var passwordConfirm = document.getElementById("confirm-password").value;
@@ -54,7 +55,11 @@ function signUp() {
         return false;
     }
     else {
-        return true;
+        console.log("Before post request");
+        $.post('/addUser', {username: username, password: password},function() {
+            location.reload();
+            return true;
+        })
     }
 }
 
