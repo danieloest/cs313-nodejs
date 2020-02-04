@@ -1,0 +1,1 @@
+This project is a to-do list SPA using Node.js. It implements the MCV design pattern in order to maintain clean and efficient code.
